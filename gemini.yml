@@ -8,7 +8,7 @@
 
   tasks:
     - name: Send request to Gemini API
-      no_log: true
+      no_log: false
       register: gemini_response
       ansible.builtin.uri:
         url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
