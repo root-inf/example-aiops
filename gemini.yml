@@ -1,0 +1,28 @@
+---
+- name: Ask Gemini
+  hosts: localhost
+  gather_facts: false
+  vars:
+  # gemini_api_key: "{{ lookup('env', 'GEMINI_API_KEY') }}"
+    user_question: "Ansibleでファイルのパーミッションを0644にする際のベストプラクティスを短く教えて。"
+
+  tasks:
+    - name: Send request to Gemini API
+      no_log: true
+      register: gemini_response
+      ansible.builtin.uri:
+        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
+        method: POST
+        headers:
+          x-goog-api-key: "{{ gemini_api_key }}"
+          Content-Type: application/json
+        body_format: json
+        body:
+          contents:
+            - parts:
+                - text: "{{ user_question }}"
+        status_code: 200
+
+    - name: Show the Gemini response
+      ansible.builtin.debug:
+        var: gemini_response.json.candidates[0].content.parts[0].text
