@@ -8,7 +8,7 @@
         port: 5000
 
   rules:
-    - name: Update prod servers
+    - name: Create Redmine issue ticket
       condition: >
         event.payload.host_host == "ip-10-0-0-4"
         and event.payload.trigger_name == "Failed to connect web server"
