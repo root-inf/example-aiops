@@ -19,7 +19,7 @@
           issue:
             project_id: eda
             tracker_id: 1
-            subject: Error occurred on {{ host }} - {{ trigger_name }} - {{ event_severity }}
+            subject: Error occurred on {{ host_host }} - {{ trigger_name }} - {{ event_severity }}
             description: This is a test.
         return_content: true
         status_code:
