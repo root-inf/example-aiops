@@ -14,4 +14,6 @@
         and event.payload.trigger_name == "Failed to connect web server"
         and event.payload.event_severity == "High"
       action:
-        debug:
+        run_job_template:
+          name: Demo Job Template
+          organization: Default
