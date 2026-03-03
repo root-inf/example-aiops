@@ -1,0 +1,31 @@
+---
+- name: Redmine create ticket
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    - name: Create issue
+      register: ret
+      ansible.builtin.uri:
+        url: http://ec2-3-26-103-212.ap-southeast-2.compute.amazonaws.com:3000/issues.json
+        method: POST
+        headers:
+          Content-Type: application/json
+          X-Redmine-API-Key: "{{ redmine_api_key }}"
+        body_format: json
+        body:
+          issue:
+            project_id: eda
+            tracker_id: 1
+            subject: Error occurred on {{ host }} - {{ trigger_name }} - {{ event_severity }}
+            description: This is a test.
+        return_content: true
+        status_code:
+          - 200
+          - 201
+
+    - name: Show result
+      ansible.builtin.debug:
+        var: ret
