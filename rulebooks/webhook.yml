@@ -1,0 +1,17 @@
+---
+- name: Listen for events on a webhook
+  hosts: localhost
+
+  sources:
+    - eda.builtin.webhook:
+        host: 0.0.0.0
+        port: 5000
+
+  rules:
+    - name: Update prod servers
+      condition: >
+        event.payload.host_host == "ip-10-0-0-4"
+        and event.payload.trigger_name == "Failed to connect web server"
+        and event.payload.event_severity == "High"
+      action:
+        debug:
