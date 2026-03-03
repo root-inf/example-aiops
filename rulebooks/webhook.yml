@@ -15,6 +15,8 @@
         and event.payload.event_severity == "High"
       action:
         run_job_template:
-          name: Create Redmine issue ticket
+          name: Debug
           organization: Default
-          var_root: payload
+          job_args:
+            extra_vars:
+              test: abc

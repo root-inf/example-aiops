@@ -1,0 +1,10 @@
+---
+- name: Debug EDA variables
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: Show environment variables
+      ansible.builtin.debug:
+        var: test
