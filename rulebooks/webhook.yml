@@ -17,4 +17,4 @@
         run_job_template:
           name: Create Redmine issue ticket
           organization: Default
-          var_root: event.payload
+          var_root: payload
