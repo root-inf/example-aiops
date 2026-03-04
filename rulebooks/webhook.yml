@@ -18,8 +18,8 @@
           name: Create Redmine issue ticket
           organization: Default
           var_root: payload
-          job_args:
-            extra_vars:
-              host_host: "{{ host_host }}"
-              trigger_name: "{{ trigger_name }}"
-              event_severity: "{{ event_severity }}"
+        #  job_args:
+        #   extra_vars:
+        #     host_host: "{{ host_host }}"
+        #     trigger_name: "{{ trigger_name }}"
+        #     event_severity: "{{ event_severity }}"
