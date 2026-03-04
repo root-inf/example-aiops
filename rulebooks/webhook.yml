@@ -19,6 +19,4 @@
           organization: Default
           job_args:
             extra_vars:
-              host_host: "{{ event.payload.host_host }}"
-              trigger_name: "{{ event.payload.trigger_name }}"
-              event_severity: "{{ event.payload.event_severity }}"
+              payload: "{{ event.payload }}"
