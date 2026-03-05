@@ -20,7 +20,7 @@
             project_id: eda
             tracker_id: 1
             subject: Error occurred on {{ payload.host_host }} - {{ payload.trigger_name }} - {{ payload.event_severity }}
-            description: This is a test.
+            description: This is a test. {{ payload.host_host }}
         return_content: true
         status_code:
           - 200
