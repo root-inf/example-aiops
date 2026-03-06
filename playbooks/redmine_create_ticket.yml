@@ -18,8 +18,8 @@
         body_format: json
         body:
           system_instruction:
-            - parts:
-                - text: "あなたは優秀なITインフラエンジニアです。以下の情報をもとにRedmineのチケットを作成してください。"
+            parts:
+              - text: "あなたは優秀なITインフラエンジニアです。以下の情報をもとにRedmineのチケットを作成してください。"
           contents:
             - role: user
               parts:
