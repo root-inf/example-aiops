@@ -53,4 +53,4 @@
     - name: Show result
       ansible.builtin.debug:
         var: gemini_response.json.candidates[0].content.parts[0].text
-             | regex_search('(?s)---.*?\\.\\.\\.', multiline=True)
+             | regex_search('(?s)---.*?\.\.\.', multiline=True)
