@@ -23,7 +23,7 @@
           contents:
             - role: user
               parts:
-                - text: "監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、解決のためのPlaybook(ファイル名：webserver_recovery.yml)を提示してください。以下はアラートの詳細情報です。\n{{ payload }}"
+                - text: "監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、解決のためのPlaybook(ファイル名：webserver_recovery.yml)を提示してください。ymlは表記法通り、「---」で始めて「...」で終了してください。以下はアラートの詳細情報です。\n{{ payload }}"
         status_code: 200
 
     - name: Show the Gemini response
