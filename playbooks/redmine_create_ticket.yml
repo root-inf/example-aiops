@@ -7,7 +7,7 @@
   tasks:
 
     - name: Send request to Gemini API
-      no_log: false
+      no_log: true
       register: gemini_response
       ansible.builtin.uri:
         url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
@@ -23,7 +23,7 @@
           contents:
             - role: user
               parts:
-                - text: "監視システムZabbixからのアラート情報をもとに、Redmineのチケットを作成してください。以下はアラートの詳細情報です。\n\nホスト: {{ payload.host_host }}\nトリガー: {{ payload.trigger_name }}\nイベントの重大度: {{ payload.event_severity }}\n発生日時: {{ payload.event_time }}\n\nこの情報をもとに、Redmineのチケットの件名と説明を作成してください。件名にはホスト、トリガー、イベントの重大度を含めてください。説明にはアラートの詳細情報を含めてください。"
+                - text: "監視システムZabbixからのアラート情報をもとに、起きている問題と考えられる解決策を提示してください。もし解決策を提示するための情報が不足していたらそれも教えてください。以下はアラートの詳細情報です。\n\nホスト: {{ payload.host_host }}\nトリガー: {{ payload.trigger_name }}\nイベントの重大度: {{ payload.event_severity }}\n発生日時: {{ payload.event_time }}\n\nこの情報をもとに、Redmineのチケットの件名と説明を作成してください。件名にはホスト、トリガー、イベントの重大度を含めてください。説明にはアラートの詳細情報を含めてください。"
         status_code: 200
 
     - name: Show the Gemini response
@@ -44,7 +44,7 @@
             project_id: eda
             tracker_id: 1
             subject: Error occurred on {{ payload.host_host }} - {{ payload.trigger_name }} - {{ payload.event_severity }}
-            description: gemini_response.json.candidates[0].content.parts[0].text
+            description: "{{ gemini_response.json.candidates[0].content.parts[0].text }}"
         return_content: true
         status_code:
           - 200
