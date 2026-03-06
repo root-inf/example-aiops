@@ -6,6 +6,27 @@
 
   tasks:
 
+    - name: Send request to Gemini API
+      no_log: true
+      register: gemini_response
+      ansible.builtin.uri:
+        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
+        method: POST
+        headers:
+          x-goog-api-key: "{{ gemini_api_key }}"
+          Content-Type: application/json
+        body_format: json
+        body:
+          contents:
+            - parts:
+                - text: "{{ user_question }}"
+        status_code: 200
+
+    - name: Show the Gemini response
+      ansible.builtin.debug:
+        var: gemini_response.json.candidates[0].content.parts[0].text
+
+
     - name: Create issue
       register: ret
       ansible.builtin.uri:
@@ -20,7 +41,7 @@
             project_id: eda
             tracker_id: 1
             subject: Error occurred on {{ payload.host_host }} - {{ payload.trigger_name }} - {{ payload.event_severity }}
-            description: This is a test. {{ payload }}
+            description: gemini_response.json.candidates[0].content.parts[0].text
         return_content: true
         status_code:
           - 200
