@@ -53,11 +53,11 @@
     - name: Show result
       ansible.builtin.debug:
         var: gemini_response.json.candidates[0].content.parts[0].text
-             | regex_search('(?s)# webserver_recovery.yml.*?\.\.\.', multiline=True)
+             | regex_search('(?s)# webserver_recovery.yml.*?\\.\\.\\.', multiline=True)
 
     - name: Copy file
       ansible.builtin.copy:
-        content: "{{ gemini_response.json.candidates[0].content.parts[0].text | regex_search('(?s)# webserver_recovery.yml.*?\.\.\.', multiline=True) }}"
+        content: "{{ gemini_response.json.candidates[0].content.parts[0].text | regex_search('(?s)# webserver_recovery.yml.*?\\.\\.\\.', multiline=True) }}"
         dest: "./webserver_recovery.yml"
 
     - name: Show the file content
