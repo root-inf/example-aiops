@@ -23,7 +23,7 @@
           contents:
             - role: user
               parts:
-                - text: "監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、解決のためのPlaybookを提示してください。YAMLファイルの1行目は「# Filename: webserver_recovery.yml)」で始め、あとはYAML記法通り、「---」で始めて「...」以下はアラートの詳細情報です。\n{{ payload }}"
+                - text: "監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、解決のためのPlaybookを提示してください。YAMLファイルの1行目は「# webserver_recovery.yml)」で始め、あとはYAML記法通り、「---」で始めて「...」以下はアラートの詳細情報です。\n{{ payload }}"
         status_code: 200
 
     - name: Show the Gemini response
@@ -53,4 +53,4 @@
     - name: Show result
       ansible.builtin.debug:
         var: gemini_response.json.candidates[0].content.parts[0].text
-             | regex_search('(?s)# Filename\: webserver_recovery.yml.*?\.\.\.', multiline=True)
+             | regex_search('(?s)# webserver_recovery.yml.*?\.\.\.', multiline=True)
