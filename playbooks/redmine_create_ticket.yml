@@ -17,15 +17,19 @@
           Content-Type: application/json
         body_format: json
         body:
-          contents:
+          system_instruction:
             - parts:
-                - text: "{{ user_question }}"
+                - text: "あなたは優秀なITインフラエンジニアです。以下の情報をもとにRedmineのチケットを作成してください。"
+          contents:
+            - role: user
+              parts:
+                - text: >
+                  "監視システムZabbixからのアラート情報をもとに、Redmineのチケットを作成してください。以下はアラートの詳細情報です。\n\nホスト: {{ payload.host_host }}\nトリガー: {{ payload.trigger_name }}\nイベントの重大度: {{ payload.event_severity }}\n発生日時: {{ payload.event_time }}\n\nこの情報をもとに、Redmineのチケットの件名と説明を作成してください。件名にはホスト、トリガー、イベントの重大度を含めてください。説明にはアラートの詳細情報を含めてください。"
         status_code: 200
 
     - name: Show the Gemini response
       ansible.builtin.debug:
         var: gemini_response.json.candidates[0].content.parts[0].text
-
 
     - name: Create issue
       register: ret
