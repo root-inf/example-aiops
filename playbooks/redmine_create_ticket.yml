@@ -33,7 +33,7 @@
     - name: Create issue
       register: ret
       ansible.builtin.uri:
-        url: http://ec2-16-176-29-186.ap-southeast-2.compute.amazonaws.com:3000/issues.json
+        url: http://ec2-13-239-35-217.ap-southeast-2.compute.amazonaws.com:3000/issues.json
         method: POST
         headers:
           Content-Type: application/json
