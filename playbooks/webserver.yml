@@ -1,0 +1,28 @@
+---
+- name: Web Server Setup
+  hosts: student
+  become: true
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Open HTTP port in the firewall
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+
+    - name: Start and enable Apache service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Create a sample index.html
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: "<html><body><h1>Welcome to the Web Server!</h1></body></html>"
