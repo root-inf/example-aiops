@@ -1,0 +1,24 @@
+---
+- name: User access setup
+  hosts: student
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Create a user account for the student
+      ansible.builtin.user:
+        name: ec2-user
+        password: "{{ student_password | password_hash('sha512') }}"
+        state: present
+        shell: /bin/bash
+
+    - name: Allow the student to access the server via SSH using password authentication temporarily
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config.d/50-cloud-init.conf
+        regexp: '^PasswordAuthentication no'
+        line: 'PasswordAuthentication yes'
+
+    - name: Restart the SSH service to apply the changes
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
