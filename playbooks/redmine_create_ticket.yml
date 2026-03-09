@@ -66,12 +66,10 @@
         var: lookup('file', './webserver_recovery.yml')
 
     - name: Clone git repository
+      register: git_clone_result
       ansible.scm.git_retrieve:
         origin: 
           url: "{{ git_repo_url }}"
-        host_key_checking: false
-      register: git_clone_result
-
 
     - name: Copy the file to the current directory
       ansible.builtin.copy:
