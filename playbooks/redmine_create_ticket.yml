@@ -63,3 +63,20 @@
     - name: Show the file content
       ansible.builtin.debug:
         var: lookup('file', './webserver_recovery.yml')
+
+    - name: Clone git repository
+      ansible.builtin.git:
+        repo: '{{ git_repo_url }}'
+        dest: './git_repo'
+        version: 'HEAD'
+        force: yes
+        update: yes
+
+    - name: Move the file to git repository
+      ansible.builtin.command: mv ./webserver_recovery.yml ./git_repo/webserver_recovery.yml
+
+    - name: Commit and push changes
+      ansible.builtin.command: >
+        git -C ./git_repo add webserver_recovery.yml &&
+        git -C ./git_repo commit -m "Add webserver_recovery.yml" &&
+        git -C ./git_repo push origin HEAD
