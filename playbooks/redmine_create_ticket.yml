@@ -108,6 +108,11 @@
       ansible.controller.job_launch:
         job_template: Webserver Recovery
 
+    - name: Wait for the job to complete
+      ansible.controller.job_wait:
+        job_id: "{{ job_launch_result.id }}"
+        timeout: 300
+
     - name: Show the job launch result
       ansible.builtin.debug:
         var: job_launch_result
