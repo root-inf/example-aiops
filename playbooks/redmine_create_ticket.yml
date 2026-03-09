@@ -68,6 +68,9 @@
     - name: Clone git repository
       register: git_clone_result
       ansible.scm.git_retrieve:
+        branch:
+          name: need_for_approval_from_ai
+          duplicate_detection: false
         origin: 
           url: "{{ git_repo_url }}"
 
@@ -80,9 +83,6 @@
     - name: Publish the changes
       register: git_push_result
       ansible.scm.git_publish:
-        branch:
-          name: need_for_approval_from_ai
-          duplicate_detection: false
         path: "{{ git_clone_result['path'] }}"
 
     
