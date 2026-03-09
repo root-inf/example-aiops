@@ -69,7 +69,7 @@
       register: git_clone_result
       ansible.scm.git_retrieve:
         branch:
-          name: need_for_approval_from_ai
+          name: main
           duplicate_detection: false
         origin: 
           url: "{{ git_repo_url }}"
