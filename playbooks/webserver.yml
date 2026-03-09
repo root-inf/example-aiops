@@ -9,13 +9,6 @@
         name: httpd
         state: present
 
-    - name: Open HTTP port in the firewall
-      ansible.posix.firewalld:
-        service: http
-        permanent: true
-        state: enabled
-        immediate: yes
-
     - name: Start and enable Apache service
       ansible.builtin.service:
         name: httpd
