@@ -14,8 +14,8 @@
         and event.payload.trigger_name == "Failed to connect web server"
         and event.payload.event_severity == "High"
       action:
-        run_job_template:
-          name: Create Redmine issue ticket
+        run_workflow_template:
+          name: AIOps simple workflow
           organization: Default
           job_args:
             extra_vars:
