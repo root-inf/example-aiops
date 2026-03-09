@@ -91,13 +91,13 @@
 
     - name: Update AAP Project
       ansible.controller.project_update:
-        project: genai_playbooks
+        project: forai
         timeout: 60
 
     - name: Create a new job template
       ansible.controller.job_template:
         name: Webserver Recovery
-        project: genai_playbooks
+        project: forai
         playbook: webserver_recovery.yml
         inventory: example-aiops
         credentials:
