@@ -80,6 +80,9 @@
     - name: Publish the changes
       register: git_push_result
       ansible.scm.git_publish:
+        branch:
+          name: need_for_approval_from_ai
+          duplicate_detection: false
         path: "{{ git_clone_result['path'] }}"
 
     
