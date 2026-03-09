@@ -79,6 +79,6 @@
         dest: "{{ git_clone_result['path'] }}/webserver_recovery.yml"
         mode: '0644'
 
-    - name Publish the changes
+    - name: Publish the changes
       ansible.scm.git_publish:
-        path: "{{ repository['path'] }}"
+        path: "{{ git_clone_result['path'] }}"
