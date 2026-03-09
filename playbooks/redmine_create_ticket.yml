@@ -59,24 +59,26 @@
       ansible.builtin.copy:
         content: "{{ gemini_response.json.candidates[0].content.parts[0].text | regex_search('(?s)# webserver_recovery.yml.*?\\.\\.\\.', multiline=True) }}"
         dest: "./webserver_recovery.yml"
+        mode: '0644'
 
     - name: Show the file content
       ansible.builtin.debug:
         var: lookup('file', './webserver_recovery.yml')
 
     - name: Clone git repository
-      ansible.builtin.git:
-        repo: '{{ git_repo_url }}'
-        dest: './git_repo'
-        version: 'HEAD'
-        force: yes
-        update: yes
+      ansible.scm.git_retrieve:
+        origin: 
+          url: "{{ git_repo_url }}"
+        host_key_checking: false
+      register: git_clone_result
 
-    - name: Move the file to git repository
-      ansible.builtin.command: mv ./webserver_recovery.yml ./git_repo/webserver_recovery.yml
 
-    - name: Commit and push changes
-      ansible.builtin.command: >
-        git -C ./git_repo add webserver_recovery.yml &&
-        git -C ./git_repo commit -m "Add webserver_recovery.yml" &&
-        git -C ./git_repo push origin HEAD
+    - name: Copy the file to the current directory
+      ansible.builtin.copy:
+        src: "./webserver_recovery.yml"
+        dest: "{{ git_clone_result['path'] }}/webserver_recovery.yml"
+        mode: '0644'
+
+    - name Publish the changes
+      ansible.scm.git_publish:
+        path: "{{ repository['path'] }}"
