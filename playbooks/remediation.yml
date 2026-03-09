@@ -88,3 +88,31 @@
     - name: Show the file content
       ansible.builtin.debug:
         var: git_push_result
+
+    - name: Update AAP Project
+      ansible.controller.project_update:
+        project: forai
+        timeout: 60
+
+    - name: Create a new job template
+      ansible.controller.job_template:
+        name: Webserver Recovery
+        project: forai
+        playbook: webserver_recovery.yml
+        inventory: example-aiops
+        credentials:
+          - linux
+
+    - name: Run the job template
+      register: job_launch_result
+      ansible.controller.job_launch:
+        job_template: Webserver Recovery
+
+    - name: Wait for the job to complete
+      ansible.controller.job_wait:
+        job_id: "{{ job_launch_result.id }}"
+        timeout: 300
+
+    - name: Show the job launch result
+      ansible.builtin.debug:
+        var: job_launch_result
