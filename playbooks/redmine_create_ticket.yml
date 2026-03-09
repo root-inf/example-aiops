@@ -78,5 +78,11 @@
         mode: '0644'
 
     - name: Publish the changes
+      register: git_push_result
       ansible.scm.git_publish:
         path: "{{ git_clone_result['path'] }}"
+
+    
+    - name: Show the file content
+      ansible.builtin.debug:
+        var: git_push_result
