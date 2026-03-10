@@ -6,11 +6,6 @@
 
   tasks:
 
-    - name: Update AAP Project
-      ansible.controller.project_update:
-        project: genai-playbooks
-        timeout: 60
-
     - name: Create a new job template
       ansible.controller.job_template:
         name: Webserver Recovery

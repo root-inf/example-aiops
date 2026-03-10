@@ -12,7 +12,7 @@
       ansible.builtin.debug:
         var: services
 
-    - name: Toggle Apache service
+    - name: Toggle httpd service
       ansible.builtin.service:
-        name: httpd
+        name: httpd.service
         state: "{{ 'stopped' if 'httpd.service' in services and services['httpd.service'].state == 'running' else 'started' }}"
