@@ -14,7 +14,7 @@
         and event.payload.event_severity == "High"
       action:
         run_workflow_template:
-          name: AIOps simple workflow {{ student_name }}
+          name: "{{ student_name }}: AIOps simple workflow"
           organization: Default
           job_args:
             extra_vars:
