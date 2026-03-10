@@ -1,0 +1,14 @@
+---
+- name: Toggle Web Server Service
+  hosts: student
+  gather_facts: false
+
+  tasks:
+
+    - name: Check if https is running
+      ansible.builtin.service_facts:
+
+    - name: Toggle Apache service
+      ansible.builtin.service:
+        name: httpd
+        state: "{{ 'stopped' if 'httpd' in services and services['httpd'].state == 'running' else 'started' }}"
