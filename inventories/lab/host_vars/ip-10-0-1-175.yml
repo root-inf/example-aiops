@@ -2,3 +2,13 @@
 ansible_host: ec2-13-211-47-213.ap-southeast-2.compute.amazonaws.com
 student_name: student99
 jt_name: Webserver Recovery {{ student_name }}
+gemini_prompt: 
+  instruction: |-
+    あなたは優秀なITインフラエンジニアであり、Ansible Playbook開発者です。
+    以下の情報をもとにRedmineのチケットを作成してください。
+  contents: |-
+    監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、可能であれば解決のためのPlaybookを提示してください。
+    YAMLファイルの1行目は「# webserver_recovery.yml)」で始め、あとはYAML記法通り、「---」で始めて「...」で終了し、
+    全体をコードブロックとして扱ってください。
+    また、環境がAWSのEC2を使用しているため、FWのポートは調査対象から外してください。
+    以下、アラートの詳細情報が続きます。
