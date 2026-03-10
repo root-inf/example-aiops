@@ -15,4 +15,4 @@
     - name: Toggle Apache service
       ansible.builtin.service:
         name: httpd
-        state: "{{ 'stopped' if 'httpd' in services and services['httpd'].state == 'running' else 'started' }}"
+        state: "{{ 'stopped' if 'httpd.service' in services and services['httpd.service'].state == 'running' else 'started' }}"
