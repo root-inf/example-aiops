@@ -41,7 +41,7 @@
         body_format: json
         body:
           issue:
-            project_id: eda
+            project_id: aiops
             tracker_id: 1
             subject: Error occurred on {{ payload.host_host }} - {{ payload.trigger_name }} - {{ payload.event_severity }}
             description: "{{ gemini_response.json.candidates[0].content.parts[0].text }}"
