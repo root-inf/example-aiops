@@ -15,6 +15,7 @@
       action:
         run_workflow_template:
           name: "{{ student_name }}: AIOps simple workflow"
+          organization: Lab
           job_args:
             extra_vars:
               payload: "{{ event.payload }}"
