@@ -8,11 +8,8 @@
     - name: Check if https is running
       ansible.builtin.service_facts:
 
-    - name: Show service status
-      ansible.builtin.debug:
-        var: services
-
     - name: Toggle httpd service
+      become: true
       ansible.builtin.service:
         name: httpd.service
         state: "{{ 'stopped' if 'httpd.service' in services and services['httpd.service'].state == 'running' else 'started' }}"
