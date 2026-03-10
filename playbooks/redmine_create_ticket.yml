@@ -44,7 +44,7 @@
         body_format: json
         body:
           issue:
-            project_id: aiops
+            project_id: "{{ student_name }}"
             tracker_id: 1
             subject:  Error occurred {{ student_name }} - on {{ payload.host_host }} - {{ payload.trigger_name }} - {{ payload.event_severity }}
             description: "{{ gemini_response.json.candidates[0].content.parts[0].text }}"
