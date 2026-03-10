@@ -10,7 +10,7 @@
       delegate_to: localhost
       ansible.controller.job_template:
         name: "{{ jt_name }}"
-        project: genai-playbooks
+        project: genai-playbooks-{{ student_name }}
         playbook: "{{ playbook_name }}"
         inventory: inventory-{{ student_name }}
         organization: Lab
