@@ -1,38 +1,11 @@
 ---
-- name: Redmine create ticket
+- name: Show playbook content
   hosts: localhost
   connection: local
   gather_facts: false
 
   tasks:
 
-    - name: Wrtite the playbook tempolary
-      ansible.builtin.copy:
-        content: "{{ playbook_content }}"
-        dest: "./{{ playbook_name }}"
-        mode: '0644'
-
-    - name: Show the file content
+    - name: Show the playbook content
       ansible.builtin.debug:
-        var: lookup('file', './{{ playbook_name }}')
-
-    - name: Clone git repository
-      register: git_clone_result
-      ansible.scm.git_retrieve:
-        branch:
-          name: main
-          duplicate_detection: false
-        origin: 
-          url: "{{ git_repo_url }}"
-
-    - name: Copy the file to the current directory
-      ansible.builtin.copy:
-        src: "./{{ playbook_name }}"
-        dest: "{{ git_clone_result['path'] }}/{{ playbook_name }}"
-        mode: '0644'
-
-    - name: Publish the changes
-      register: git_push_result
-      ansible.scm.git_publish:
-        path: "{{ git_clone_result['path'] }}"
-
+        var: playbook_content
