@@ -10,7 +10,7 @@
   rules:
     - name: Create Redmine issue ticket
       condition: >
-        and event.payload.trigger_name == "Failed to connect web server"
+        event.payload.trigger_name == "Failed to connect web server"
         and event.payload.event_severity == "High"
       action:
         run_workflow_template:
