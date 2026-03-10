@@ -8,6 +8,10 @@
     - name: Check if https is running
       ansible.builtin.service_facts:
 
+    - name: Show service status
+      ansible.builtin.debug:
+        var: services
+
     - name: Toggle Apache service
       ansible.builtin.service:
         name: httpd
