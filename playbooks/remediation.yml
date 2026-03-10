@@ -1,5 +1,5 @@
 ---
-- name: Remediation Playbook
+- name: Web server remediation
   hosts: all
   connection: local
   gather_facts: false
@@ -12,7 +12,8 @@
         name: "{{ jt_name }}"
         project: genai-playbooks
         playbook: "{{ playbook_name }}"
-        inventory: example-aiops
+        inventory: inventory-{{ student_name }}
+        organization: Lab
         credentials:
           - linux
 
