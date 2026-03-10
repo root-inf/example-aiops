@@ -1,2 +1,11 @@
 ---
 redmine_host: ec2-54-252-208-31.ap-southeast-2.compute.amazonaws.com
+gemini_prompt: 
+  instruction: |-
+    あなたは優秀なITインフラエンジニアであり、Ansible Playbook開発者です。
+    以下の情報をもとにRedmineのチケットを作成してください。
+  contents: |-
+    監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、解決のためのPlaybookを提示してください。
+    YAMLファイルの1行目は「# webserver_recovery.yml)」で始め、あとはYAML記法通り、「---」で始めて「...」で終了し、
+    全体をコードブロックとして扱ってください。
+    以下、アラートの詳細情報が続きます。

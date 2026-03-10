@@ -19,11 +19,13 @@
         body:
           system_instruction:
             parts:
-              - text: "あなたは優秀なITインフラエンジニアであり、Ansible Playbook開発者です。以下の情報をもとにRedmineのチケットを作成してください。"
+              - text: "{{ gemini_prompt['instruction'] }}"
           contents:
             - role: user
               parts:
-                - text: "監視システムZabbixからのWeb監視(URL)アラート情報をもとに、起きている問題と診断、解決のためのPlaybookを提示してください。YAMLファイルの1行目は「# webserver_recovery.yml)」で始め、あとはYAML記法通り、「---」で始めて「...」で終了し、全体をコードブロックとして扱ってください。以下はアラートの詳細情報です。\n{{ payload }}"
+                - text: |-
+                    {{ gemini_prompt['contents'] }}
+                    {{ payload | to_nice_json }}
         status_code: 200
 
     - name: Show the Gemini response
