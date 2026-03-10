@@ -10,6 +10,11 @@
 
     - name: Toggle httpd service
       become: true
+      register: service_result
       ansible.builtin.service:
         name: httpd.service
         state: "{{ 'stopped' if 'httpd.service' in services and services['httpd.service'].state == 'running' else 'started' }}"
+
+    - name: Show the new state of httpd service
+      ansible.builtin.debug:
+        msg: The httpd service is now {{ service_result['state'] }}.
