@@ -10,7 +10,6 @@
   rules:
     - name: Create Redmine issue ticket
       condition: >
-        event.payload.host_host == "ip-10-0-0-4"
         and event.payload.trigger_name == "Failed to connect web server"
         and event.payload.event_severity == "High"
       action:
