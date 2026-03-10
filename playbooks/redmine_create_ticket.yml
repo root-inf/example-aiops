@@ -1,12 +1,12 @@
 ---
 - name: Redmine create ticket
-  hosts: localhost
-  connection: local
+  hosts: all
   gather_facts: false
 
   tasks:
 
     - name: Send request to Gemini API
+      delegate_to: localhost
       no_log: true
       register: gemini_response
       ansible.builtin.uri:
@@ -33,6 +33,7 @@
         var: gemini_response.json.candidates[0].content.parts[0].text
 
     - name: Create issue
+      delegate_to: localhost
       register: ret
       ansible.builtin.uri:
         url: http://{{ redmine_host }}:3000/issues.json

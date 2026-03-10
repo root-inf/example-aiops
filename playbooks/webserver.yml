@@ -1,6 +1,6 @@
 ---
 - name: Web Server Setup
-  hosts: student
+  hosts: all
   gather_facts: false
   become: true
 

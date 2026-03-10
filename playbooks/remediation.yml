@@ -1,14 +1,15 @@
 ---
 - name: Remediation Playbook
-  hosts: localhost
+  hosts: all
   connection: local
   gather_facts: false
 
   tasks:
 
     - name: Create a new job template
+      delegate_to: localhost
       ansible.controller.job_template:
-        name: Webserver Recovery
+        name: "{{ jt_name }}"
         project: genai-playbooks
         playbook: "{{ playbook_name }}"
         inventory: example-aiops
@@ -16,15 +17,13 @@
           - linux
 
     - name: Run the job template
+      delegate_to: localhost
       register: job_launch_result
       ansible.controller.job_launch:
-        job_template: Webserver Recovery
+        job_template: "{{ jt_name }}"
 
     - name: Wait for the job to complete
+      delegate_to: localhost
       ansible.controller.job_wait:
         job_id: "{{ job_launch_result.id }}"
         timeout: 300
-
-    - name: Show the job launch result
-      ansible.builtin.debug:
-        var: job_launch_result

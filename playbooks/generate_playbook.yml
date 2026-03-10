@@ -1,12 +1,12 @@
 ---
 - name: Generate the Ansible Playbook
-  hosts: localhost
-  connection: local
+  hosts: all
   gather_facts: false
 
   tasks:
 
     - name: Wrtite the playbook tempolary
+      delegate_to: localhost
       ansible.builtin.copy:
         content: "{{ playbook_content }}"
         dest: "./{{ playbook_name }}"
@@ -17,6 +17,7 @@
         var: lookup('file', './{{ playbook_name }}')
 
     - name: Clone git repository
+      delegate_to: localhost
       register: git_clone_result
       ansible.scm.git_retrieve:
         branch:
@@ -26,12 +27,14 @@
           url: "{{ git_repo_url }}"
 
     - name: Copy the file to the current directory
+      delegate_to: localhost
       ansible.builtin.copy:
         src: "./{{ playbook_name }}"
         dest: "{{ git_clone_result['path'] }}/{{ playbook_name }}"
         mode: '0644'
 
     - name: Publish the changes
+      delegate_to: localhost
       register: git_push_result
       ansible.scm.git_publish:
         path: "{{ git_clone_result['path'] }}"

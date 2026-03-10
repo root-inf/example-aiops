@@ -1,6 +1,6 @@
 ---
 - name: User access setup
-  hosts: student
+  hosts: all
   gather_facts: false
   become: true
 

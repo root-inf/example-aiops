@@ -1,6 +1,6 @@
 ---
 - name: Toggle Web Server Service
-  hosts: student
+  hosts: all
   gather_facts: false
 
   tasks:

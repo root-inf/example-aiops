@@ -1,7 +1,6 @@
 ---
 - name: Show playbook content
-  hosts: localhost
-  connection: local
+  hosts: all
   gather_facts: false
 
   tasks:
