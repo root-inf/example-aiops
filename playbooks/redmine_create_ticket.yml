@@ -55,36 +55,9 @@
         var: gemini_response.json.candidates[0].content.parts[0].text
              | regex_search('(?s)^# webserver_recovery.yml.*?^\\.\\.\\.', multiline=True)
 
-    - name: Copy file
-      ansible.builtin.copy:
-        content: "{{ gemini_response.json.candidates[0].content.parts[0].text | regex_search('(?s)^# webserver_recovery.yml.*?^\\.\\.\\.', multiline=True) }}"
-        dest: "./webserver_recovery.yml"
-        mode: '0644'
-
-    - name: Show the file content
-      ansible.builtin.debug:
-        var: lookup('file', './webserver_recovery.yml')
-
-    - name: Clone git repository
-      register: git_clone_result
-      ansible.scm.git_retrieve:
-        branch:
-          name: main
-          duplicate_detection: false
-        origin: 
-          url: "{{ git_repo_url }}"
-
-    - name: Copy the file to the current directory
-      ansible.builtin.copy:
-        src: "./webserver_recovery.yml"
-        dest: "{{ git_clone_result['path'] }}/webserver_recovery.yml"
-        mode: '0644'
-
-    - name: Publish the changes
-      register: git_push_result
-      ansible.scm.git_publish:
-        path: "{{ git_clone_result['path'] }}"
-
-    - name: Show the file content
-      ansible.builtin.debug:
-        var: git_push_result
+    - name: Set playbook stats
+      ansible.builtin.set_stats:
+        data:
+          playbook_content: "{{ gemini_response.json.candidates[0].content.parts[0].text | regex_search('(?s)^# webserver_recovery.yml.*?^\\.\\.\\.', multiline=True) }}"
+          playbook_name: webserver_recovery.yml
+        aggregate: false
